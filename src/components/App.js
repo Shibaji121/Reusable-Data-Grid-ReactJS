@@ -31,6 +31,34 @@ function App() {
       date: "07/09/2020",
       order: "20452221703743",
     },
+    {
+      id: 5,
+      name: "Kim Parrish",
+      address: "Garnerville, NY 10923",
+      date: "07/11/2020",
+      order: "87349585892118",
+    },
+    {
+      id: 6,
+      name: "Michele Castillo",
+      address: "Fullerton, NE 68638",
+      date: "07/11/2020",
+      order: "58418278790810",
+    },
+    {
+      id: 7,
+      name: "Eric Ferris",
+      address: "Toccoa, GA 30577",
+      date: "07/10/2020",
+      order: "81534454080477",
+    },
+    {
+      id: 8,
+      name: "Gloria Noble",
+      address: "Fresno, CA 93721",
+      date: "07/09/2020",
+      order: "20452221703743",
+    },
   ];
   const columns = [
     {

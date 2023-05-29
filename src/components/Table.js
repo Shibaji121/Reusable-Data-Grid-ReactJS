@@ -7,22 +7,45 @@ export default function Table(props) {
   const firstIndex = lastIndex - recordsPerPage;
   const records = props.data.slice(firstIndex, lastIndex);
   const noOfPages = Math.ceil(props.data.length / recordsPerPage);
-  const numbers = [...Array(noOfPages + 1).keys()].slice(1);
+  const maxPagesToShow = 2;
+  const totalPages = Math.min(noOfPages, maxPagesToShow);
+  const [startPage, setStartPage] = useState(1);
 
   const prevPage = () => {
     if (currentPage !== 1) {
       setCurrentPage((prev) => prev - 1);
     }
-  };
-
-  const changeCurrentPage = (id) => {
-    setCurrentPage(id);
+    if (currentPage - 1 < startPage) {
+      setStartPage((prev) => prev - 1);
+    }
   };
 
   const nextPage = () => {
     if (currentPage !== noOfPages) {
       setCurrentPage((prev) => prev + 1);
     }
+    if (currentPage + 1 > startPage + maxPagesToShow - 1) {
+      setStartPage((prev) => prev + 1);
+    }
+  };
+
+  const goToPage = (page) => {
+    setCurrentPage(page);
+  };
+
+  const handleNextSet = () => {
+    const nextPage = startPage + maxPagesToShow;
+    const lastPage = Math.min(nextPage + maxPagesToShow - 1, noOfPages);
+    setCurrentPage(nextPage);
+    setStartPage(nextPage);
+    setStartPage(lastPage - maxPagesToShow + 1);
+  };
+
+  const handlePreviousSet = () => {
+    const previousPage = startPage - maxPagesToShow;
+    const newStartPage = Math.max(previousPage, 1);
+    setCurrentPage(newStartPage);
+    setStartPage(newStartPage);
   };
 
   return (
@@ -30,59 +53,70 @@ export default function Table(props) {
       <table className="table align-middle table-bordered border-primary">
         <thead>
           <tr>
-            {props.columns.map((col, i) => {
-              return (
-                <th scope="col" key={i}>
-                  {col.field.toUpperCase()}
-                </th>
-              );
-            })}
+            {props.columns.map((col, i) => (
+              <th scope="col" key={i}>
+                {col.field.toUpperCase()}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          {records.map((row, i) => {
-            return (
-              <tr key={i}>
-                {props.columns.map((col, i) => {
-                  return <td key={i}>{row[col.field]}</td>;
-                })}
-              </tr>
-            );
-          })}
+          {records.map((row, i) => (
+            <tr key={i}>
+              {props.columns.map((col, i) => (
+                <td key={i}>{row[col.field]}</td>
+              ))}
+            </tr>
+          ))}
         </tbody>
       </table>
       <nav className="d-flex justify-content-center">
         <ul className="pagination">
-          <li className="page-item">
-            <button
-              className="page-link"
-              onClick={prevPage}
-              disabled={currentPage === 1 ? true : false}
-            >
+          <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
+            <button className="page-link" onClick={prevPage}>
               Prev
             </button>
           </li>
-          {numbers.map((n, i) => {
+
+          {startPage > 1 && (
+            <li className="page-item">
+              <button className="page-link" onClick={handlePreviousSet}>
+                &laquo;
+              </button>
+            </li>
+          )}
+          {Array.from({ length: totalPages }).map((_, index) => {
+            const pageNumber = startPage + index;
             return (
               <li
-                className={`page-item ${currentPage === n ? "active" : ""}`}
-                key={i}
+                className={`page-item ${
+                  currentPage === pageNumber ? "active" : ""
+                }`}
+                key={index}
               >
                 <button
                   className="page-link"
-                  onClick={() => changeCurrentPage(n)}
+                  onClick={() => goToPage(pageNumber)}
                 >
-                  {n}
+                  {pageNumber}
                 </button>
               </li>
             );
           })}
-          <li className="page-item">
-            <button
-              className="page-link"
-              onClick={nextPage}
-              disabled={currentPage === noOfPages ? true : false}
-            >
+          {startPage + maxPagesToShow <= noOfPages && (
+            <li className="page-item">
+              <button className="page-link" onClick={handleNextSet}>
+                &raquo;
+              </button>
+            </li>
+          )}
+
+          <li
+            className={`page-item ${
+              currentPage === noOfPages ? "disabled" : ""
+            }`}
+          >
+            <button className="page-link" onClick={nextPage}>
               Next
             </button>
           </li>
