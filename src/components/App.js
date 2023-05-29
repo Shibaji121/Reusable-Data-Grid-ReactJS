@@ -51,6 +51,7 @@ function App() {
   ];
   return (
     <div className="App">
+      <h1 className="text-center">Re-Usable Data Grid</h1>
       <Table data={data} columns={columns} />
     </div>
   );
