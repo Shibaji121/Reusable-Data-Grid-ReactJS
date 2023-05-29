@@ -7,7 +7,7 @@ export default function Table(props) {
         <thead>
           <tr>
             {props.columns.map((col) => {
-              return <td>{col.field.toUpperCase()}</td>;
+              return <th>{col.field.toUpperCase()}</th>;
             })}
           </tr>
         </thead>
