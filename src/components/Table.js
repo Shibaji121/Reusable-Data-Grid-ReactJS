@@ -1,10 +1,28 @@
 import React from "react";
 
-export default function Table() {
+export default function Table(props) {
   return (
     <div>
-      Table Component
-      <h1>Hi</h1>
+      <table>
+        <thead>
+          <tr>
+            {props.columns.map((col) => {
+              return <td>{col.field.toUpperCase()}</td>;
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          {props.data.map((row) => {
+            return (
+              <tr>
+                {props.columns.map((col) => {
+                  return <td>{row[col.field]}</td>;
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }
