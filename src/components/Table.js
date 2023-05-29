@@ -54,7 +54,11 @@ export default function Table(props) {
       <nav className="d-flex justify-content-center">
         <ul className="pagination">
           <li className="page-item">
-            <button className="page-link" onClick={prevPage}>
+            <button
+              className="page-link"
+              onClick={prevPage}
+              disabled={currentPage === 1 ? true : false}
+            >
               Prev
             </button>
           </li>
@@ -74,7 +78,11 @@ export default function Table(props) {
             );
           })}
           <li className="page-item">
-            <button className="page-link" onClick={nextPage}>
+            <button
+              className="page-link"
+              onClick={nextPage}
+              disabled={currentPage === noOfPages ? true : false}
+            >
               Next
             </button>
           </li>
