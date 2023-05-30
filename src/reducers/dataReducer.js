@@ -1,4 +1,9 @@
-import { FETCH_COMMENTS, FETCH_POSTS, FETCH_USERS } from "../actions/action";
+import {
+  FETCH_COMMENTS,
+  FETCH_POSTS,
+  FETCH_USERS,
+  SORT_DATA,
+} from "../actions/action";
 
 const initialState = {
   data: [],
@@ -44,6 +49,21 @@ export default function dataReducer(state = initialState, action) {
         ...state,
         data: action.comments,
         column: columnData,
+      };
+    case SORT_DATA:
+      let updatedData = state.data.sort((a, b) => {
+        const aValue = a[action.sortColumn];
+        const bValue = b[action.sortColumn];
+        if (typeof aValue === "string" && typeof bValue === "string") {
+          return action.sortOrder === "asc"
+            ? aValue.localeCompare(bValue)
+            : bValue.localeCompare(aValue);
+        }
+        return action.sortOrder === "asc" ? aValue - bValue : bValue - aValue;
+      });
+      return {
+        ...state,
+        data: updatedData,
       };
     default:
       return state;

@@ -3,6 +3,7 @@ import axios from "axios";
 export const FETCH_USERS = "FETCH_USERS";
 export const FETCH_POSTS = "FETCH_POSTS";
 export const FETCH_COMMENTS = "FETCH_COMMENTS";
+export const SORT_DATA = "SORT_DATA";
 
 export const handleFetchUser = () => {
   return (dispatch) => {
@@ -53,5 +54,13 @@ export const fetchComments = (comments) => {
   return {
     type: FETCH_COMMENTS,
     comments,
+  };
+};
+
+export const sortRecords = (sortColumn, sortOrder) => {
+  return {
+    type: SORT_DATA,
+    sortColumn,
+    sortOrder,
   };
 };

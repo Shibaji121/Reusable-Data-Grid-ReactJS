@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { sortRecords } from "../actions/action";
 
 export default function Table(props) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -10,6 +12,9 @@ export default function Table(props) {
   const maxPagesToShow = props.maxPagesToShow;
   const totalPages = Math.min(noOfPages, maxPagesToShow);
   const [startPage, setStartPage] = useState(1);
+  const [sortColumn, setSortColumn] = useState("");
+  const [sortOrder, setSortOrder] = useState("");
+  const dispatch = useDispatch();
 
   const prevPage = () => {
     if (currentPage !== 1) {
@@ -48,14 +53,27 @@ export default function Table(props) {
     setStartPage(newStartPage);
   };
 
+  const handleSort = (field) => {
+    if (sortColumn === field) {
+      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+    } else {
+      setSortColumn(field);
+      setSortOrder("asc");
+    }
+    dispatch(sortRecords(sortColumn, sortOrder));
+  };
+
   return (
     <div className="table-responsive table-component">
       <table className="table align-middle table-bordered border-primary">
         <thead>
           <tr>
             {props.columns.map((col, i) => (
-              <th scope="col" key={i}>
+              <th scope="col" key={i} onClick={() => handleSort(col.field)}>
                 {col.field.toUpperCase()}
+                {sortColumn === col.field && (
+                  <span>{sortOrder === "asc" ? "▲" : "▼"}</span>
+                )}
               </th>
             ))}
           </tr>
