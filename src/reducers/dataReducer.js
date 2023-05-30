@@ -1,3 +1,5 @@
 const initialState = {};
 
-export default function dataReducer(state = initialState, action) {}
+export default function dataReducer(state = initialState, action) {
+  return state;
+}

@@ -87,6 +87,23 @@ function App() {
   return (
     <div className="App">
       <h1 className="text-center">Re-Usable Data Grid</h1>
+      <div className="btn-group btn-group-lg d-flex justify-content-center mb-3 mx-5">
+        <button className="btn btn-primary">Users</button>
+        <button className="btn btn-secondary">Posts</button>
+        <button className="btn btn-success">Comments</button>
+      </div>
+      <div class="input-group">
+        <input
+          type="search"
+          class="form-control rounded"
+          placeholder="Search"
+          aria-label="Search"
+          aria-describedby="search-addon"
+        />
+        <button type="button" class="btn btn-primary">
+          search
+        </button>
+      </div>
       <Table data={data} columns={columns} />
     </div>
   );

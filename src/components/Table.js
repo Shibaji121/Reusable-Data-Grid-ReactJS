@@ -49,7 +49,7 @@ export default function Table(props) {
   };
 
   return (
-    <div className="table-responsive">
+    <div className="table-responsive table-component">
       <table className="table align-middle table-bordered border-primary">
         <thead>
           <tr>
@@ -70,8 +70,8 @@ export default function Table(props) {
           ))}
         </tbody>
       </table>
-      <nav className="d-flex justify-content-center">
-        <ul className="pagination">
+      <nav className="d-flex justify-content-evenly">
+        <ul className="pagination pagination-lg mb-0">
           <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
             <button className="page-link" onClick={prevPage}>
               Prev
@@ -121,6 +121,12 @@ export default function Table(props) {
             </button>
           </li>
         </ul>
+        <div
+          className="border border-3 border-primary rounded-3 py-2 px-2"
+          style={{ background: "cyan" }}
+        >
+          Total No. Of Pages: {noOfPages}
+        </div>
       </nav>
     </div>
   );

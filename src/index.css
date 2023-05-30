@@ -7,12 +7,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-table {
-  width: 100%;
+.table-component {
+  width: 90%;
   font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
+  margin: auto;
 }
 
 tr:nth-child(even) {
   background-color: lightgrey;
+}
+
+.input-group {
+  width: 30% !important;
+  margin: 14px auto;
 }
