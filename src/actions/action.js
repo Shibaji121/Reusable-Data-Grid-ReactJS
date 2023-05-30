@@ -4,6 +4,7 @@ export const FETCH_USERS = "FETCH_USERS";
 export const FETCH_POSTS = "FETCH_POSTS";
 export const FETCH_COMMENTS = "FETCH_COMMENTS";
 export const SORT_DATA = "SORT_DATA";
+export const FILTER_DATA = "FILTER_DATA";
 
 export const handleFetchUser = () => {
   return (dispatch) => {
@@ -62,5 +63,12 @@ export const sortRecords = (sortColumn, sortOrder) => {
     type: SORT_DATA,
     sortColumn,
     sortOrder,
+  };
+};
+
+export const filterData = (keyWord) => {
+  return {
+    type: FILTER_DATA,
+    keyWord,
   };
 };

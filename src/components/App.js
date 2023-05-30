@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Table from "./Table";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  filterData,
   handleFetchComments,
   handleFetchPosts,
   handleFetchUser,
@@ -9,8 +10,9 @@ import {
 
 function App() {
   const dispatch = useDispatch();
-  const [recordsPerPage, setRecordsPerPage] = useState(5);
-  const [maxPagesToShow, setMaxPagesToShow] = useState(5);
+  const [query, setQuery] = useState("");
+  const recordsPerPage = 5;
+  const maxPagesToShow = 5;
 
   useEffect(() => {
     dispatch(handleFetchUser());
@@ -50,8 +52,13 @@ function App() {
           placeholder="Search"
           aria-label="Search"
           aria-describedby="search-addon"
+          onChange={(e) => setQuery(e.target.value)}
         />
-        <button type="button" className="btn btn-primary">
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => dispatch(filterData(query))}
+        >
           search
         </button>
       </div>

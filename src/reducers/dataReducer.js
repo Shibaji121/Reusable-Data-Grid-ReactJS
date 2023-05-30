@@ -2,6 +2,7 @@ import {
   FETCH_COMMENTS,
   FETCH_POSTS,
   FETCH_USERS,
+  FILTER_DATA,
   SORT_DATA,
 } from "../actions/action";
 
@@ -64,6 +65,19 @@ export default function dataReducer(state = initialState, action) {
       return {
         ...state,
         data: updatedData,
+      };
+    case FILTER_DATA:
+      let filteredData = state.data.filter((record) => {
+        return Object.values(record).some((value) => {
+          return value
+            .toString()
+            .toLowerCase()
+            .includes(action.keyWord.toLowerCase());
+        });
+      });
+      return {
+        ...state,
+        data: filteredData,
       };
     default:
       return state;
