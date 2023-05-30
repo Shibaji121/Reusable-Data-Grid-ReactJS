@@ -2,12 +2,12 @@ import React, { useState } from "react";
 
 export default function Table(props) {
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 2;
+  const recordsPerPage = props.recordsPerPage;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const records = props.data.slice(firstIndex, lastIndex);
   const noOfPages = Math.ceil(props.data.length / recordsPerPage);
-  const maxPagesToShow = 2;
+  const maxPagesToShow = props.maxPagesToShow;
   const totalPages = Math.min(noOfPages, maxPagesToShow);
   const [startPage, setStartPage] = useState(1);
 

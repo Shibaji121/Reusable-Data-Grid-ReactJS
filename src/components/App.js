@@ -1,110 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "./Table";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  handleFetchComments,
+  handleFetchPosts,
+  handleFetchUser,
+} from "../actions/action";
 
 function App() {
-  const data = [
-    {
-      id: 1,
-      name: "Kim Parrish",
-      address: "Garnerville, NY 10923",
-      date: "07/11/2020",
-      order: "87349585892118",
-    },
-    {
-      id: 2,
-      name: "Michele Castillo",
-      address: "Fullerton, NE 68638",
-      date: "07/11/2020",
-      order: "58418278790810",
-    },
-    {
-      id: 3,
-      name: "Eric Ferris",
-      address: "Toccoa, GA 30577",
-      date: "07/10/2020",
-      order: "81534454080477",
-    },
-    {
-      id: 4,
-      name: "Gloria Noble",
-      address: "Fresno, CA 93721",
-      date: "07/09/2020",
-      order: "20452221703743",
-    },
-    {
-      id: 5,
-      name: "Kim Parrish",
-      address: "Garnerville, NY 10923",
-      date: "07/11/2020",
-      order: "87349585892118",
-    },
-    {
-      id: 6,
-      name: "Michele Castillo",
-      address: "Fullerton, NE 68638",
-      date: "07/11/2020",
-      order: "58418278790810",
-    },
-    {
-      id: 7,
-      name: "Eric Ferris",
-      address: "Toccoa, GA 30577",
-      date: "07/10/2020",
-      order: "81534454080477",
-    },
-    {
-      id: 8,
-      name: "Gloria Noble",
-      address: "Fresno, CA 93721",
-      date: "07/09/2020",
-      order: "20452221703743",
-    },
-    {
-      id: 9,
-      name: "Gloria Noble",
-      address: "Fresno, CA 93721",
-      date: "07/09/2020",
-      order: "20452221703743",
-    },
-  ];
-  const columns = [
-    {
-      field: "id",
-    },
-    {
-      field: "name",
-    },
-    {
-      field: "address",
-    },
-    {
-      field: "date",
-    },
-    {
-      field: "order",
-    },
-  ];
+  const dispatch = useDispatch();
+  const [recordsPerPage, setRecordsPerPage] = useState(5);
+  const [maxPagesToShow, setMaxPagesToShow] = useState(5);
+
+  useEffect(() => {
+    dispatch(handleFetchUser());
+    console.log("effect called");
+  }, [dispatch]);
+
+  const data = useSelector((state) => state.dataReducer.data);
+  const columns = useSelector((state) => state.dataReducer.column);
+
   return (
     <div className="App">
       <h1 className="text-center">Re-Usable Data Grid</h1>
       <div className="btn-group btn-group-lg d-flex justify-content-center mb-3 mx-5">
-        <button className="btn btn-primary">Users</button>
-        <button className="btn btn-secondary">Posts</button>
-        <button className="btn btn-success">Comments</button>
+        <button
+          className="btn btn-primary"
+          onClick={() => dispatch(handleFetchUser())}
+        >
+          Users
+        </button>
+        <button
+          className="btn btn-secondary"
+          onClick={() => dispatch(handleFetchPosts())}
+        >
+          Posts
+        </button>
+        <button
+          className="btn btn-success"
+          onClick={() => dispatch(handleFetchComments())}
+        >
+          Comments
+        </button>
       </div>
-      <div class="input-group">
+      <div className="input-group">
         <input
           type="search"
-          class="form-control rounded"
+          className="form-control rounded"
           placeholder="Search"
           aria-label="Search"
           aria-describedby="search-addon"
         />
-        <button type="button" class="btn btn-primary">
+        <button type="button" className="btn btn-primary">
           search
         </button>
       </div>
-      <Table data={data} columns={columns} />
+      <Table
+        data={data}
+        columns={columns}
+        recordsPerPage={recordsPerPage}
+        maxPagesToShow={maxPagesToShow}
+      />
     </div>
   );
 }
