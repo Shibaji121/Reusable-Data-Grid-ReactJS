@@ -59,6 +59,13 @@ function App() {
       date: "07/09/2020",
       order: "20452221703743",
     },
+    {
+      id: 9,
+      name: "Gloria Noble",
+      address: "Fresno, CA 93721",
+      date: "07/09/2020",
+      order: "20452221703743",
+    },
   ];
   const columns = [
     {
