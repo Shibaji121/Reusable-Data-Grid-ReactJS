@@ -16,7 +16,6 @@ function App() {
 
   useEffect(() => {
     dispatch(handleFetchUser());
-    console.log("effect called");
   }, [dispatch]);
 
   const data = useSelector((state) => state.dataReducer.data);
