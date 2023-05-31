@@ -119,10 +119,13 @@ export default function Table(props) {
                 return (
                   <li
                     className={`page-item ${
-                      currentPage === pageNumber ? "active" : ""
+                      currentPage === pageNumber && currentPage < totalPages
+                        ? "active"
+                        : ""
                     }`}
                     key={index}
                   >
+                    {currentPage > noOfPages ? setCurrentPage(1) : ""}
                     <button
                       className="page-link"
                       onClick={() => goToPage(pageNumber)}
