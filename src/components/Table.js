@@ -114,18 +114,16 @@ export default function Table(props) {
                   </button>
                 </li>
               )}
+              {currentPage > noOfPages ? setCurrentPage(1) : ""}
               {Array.from({ length: totalPages }).map((_, index) => {
                 const pageNumber = startPage + index;
                 return (
                   <li
                     className={`page-item ${
-                      currentPage === pageNumber && currentPage < totalPages
-                        ? "active"
-                        : ""
+                      currentPage === pageNumber ? "active" : ""
                     }`}
                     key={index}
                   >
-                    {currentPage > noOfPages ? setCurrentPage(1) : ""}
                     <button
                       className="page-link"
                       onClick={() => goToPage(pageNumber)}
