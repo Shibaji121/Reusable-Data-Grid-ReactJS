@@ -114,9 +114,13 @@ export default function Table(props) {
                   </button>
                 </li>
               )}
-              {currentPage > noOfPages ? setCurrentPage(1) : ""}
+
               {Array.from({ length: totalPages }).map((_, index) => {
                 const pageNumber = startPage + index;
+                if (currentPage > noOfPages) {
+                  setCurrentPage(1);
+                  setStartPage(1);
+                }
                 return (
                   <li
                     className={`page-item ${
